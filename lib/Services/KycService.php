@@ -99,4 +99,19 @@ class KycService extends AbstractService
 
         return $this->get($parameters->getFormattedQuery($url), $parameters->getRequestBody(), $parameters->headers);
     }
+    /**
+       * Link a Veriff session id
+       * This **PUT** endpoint is used to link a Veriff session for the user with the provided user token. <br> The endpoint will then download all session data and images from the Veriff platform. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path as well as a `session_id` as a Query Parameter. <br> The response will contain success boolean with an error description in a JSON format.
+     * @param string $userToken Token representing the user to retrieve attributes for
+     * @param string $sessionId The Veriff session ID to link
+     * @returns arraySuccessful operation.
+    */
+    public function linkVeriffSession(string $userToken, string $sessionId)
+    {
+        $url = "/payout/user/{$userToken}/kyc/veriff";
+        $parameters = new RequestParameters();
+        $parameters->query['session_id'] = $sessionId;
+
+        return $this->put($parameters->getFormattedQuery($url), $parameters->getRequestBody(), $parameters->headers);
+    }
 }
